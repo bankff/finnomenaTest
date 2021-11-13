@@ -23,11 +23,15 @@ func init() {
 
 func main() {
 	r := flag.String("range", "1D", "time range")
+	s := flag.String("sort", "", "sort by performance")
 	flag.Parse()
-	if !validateflag(*r) {
-		log.Fatal("range incorrect")
+	if !validateRange(*r) {
+		log.Fatal("range invalid")
 	}
-	res, err := endpoint.GetFundsByRange(*r)
+	if *s != "" && !validateSort(*s) {
+		log.Fatal("sort invalid")
+	}
+	res, err := endpoint.GetFundsByRange(*r, *s)
 	if err != nil {
 		log.Printf("getfundsbyrange Error :: %v", err)
 	}
@@ -38,7 +42,7 @@ func main() {
 	fmt.Println(string(val))
 }
 
-func validateflag(r string) bool {
+func validateRange(r string) bool {
 	switch strings.ToUpper(r) {
 	case model.Day:
 		return true
@@ -47,6 +51,15 @@ func validateflag(r string) bool {
 	case model.Month:
 		return true
 	case model.Year:
+		return true
+	}
+	return false
+}
+func validateSort(s string) bool {
+	switch strings.ToUpper(s) {
+	case model.Max:
+		return true
+	case model.Min:
 		return true
 	}
 	return false

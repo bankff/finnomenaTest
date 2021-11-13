@@ -6,12 +6,13 @@ import (
 	"io/ioutil"
 	"net/http"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/spf13/viper"
 )
 
-func GetFundsByRange(r string) (model.Response, error) {
+func GetFundsByRange(r string, s string) (model.Response, error) {
 	var (
 		response model.Response
 		data     model.Data
@@ -47,10 +48,15 @@ func GetFundsByRange(r string) (model.Response, error) {
 		}
 	}
 	//add sort performance feature
-	for _, v := range response.Data {
-		sort.Slice(v.Value, func(i, j int) bool {
-			return v.Value[i].Performance > v.Value[j].Performance
-		})
+	if s != "" {
+		for _, v := range response.Data {
+			sort.Slice(v.Value, func(i, j int) bool {
+				if strings.ToUpper(s) == model.Min {
+					return v.Value[i].Performance < v.Value[j].Performance
+				}
+				return v.Value[i].Performance > v.Value[j].Performance
+			})
+		}
 	}
 	return response, nil
 }
