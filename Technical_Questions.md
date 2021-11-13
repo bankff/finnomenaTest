@@ -23,4 +23,4 @@ go run main.go -range=1W sort=max
 
 
 ### 3. I track issue in production by logs  
-### 4. First, I would improve the FINNOMENA APIs by add sort feature nav_date and performance, last I would improve the APIs by add feature filter by range time, thailand_fund_code, range price (Nov)
+### 4. First, I would improve the FINNOMENA APIs by add sort feature by nav_date and performance, last I would improve the APIs by add feature filter by range time, thailand_fund_code, range price (Nov)
