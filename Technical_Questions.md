@@ -17,7 +17,7 @@
   ```
   How to use 
   ```
-go run main.go -range=1W sort=max
+go run main.go -range=1W -sort=max
   ```
   ![GitHub Logo](https://github.com/bankff/finnomenaTest/blob/main/src/exwithsort.png)
 
